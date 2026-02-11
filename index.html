@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simon C. Kao, MBBS, DMRD, FRCR, FACR — Professor of Radiology</title>
+  <meta name="description" content="Simon C. Kao, MBBS, DMRD, FRCR, FACR — Professor of Radiology, Division of Pediatric Radiology, University of Iowa." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@300;400;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #111111;
+      --muted: #3d3d3d;
+      --accent: #ffcd00;
+      --accent-2: #111111;
+      --paper: #f7f7f5;
+      --card: #ffffff;
+      --line: rgba(17, 17, 17, 0.14);
+      --shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
+      --radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Space Grotesk", system-ui, -apple-system, sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, rgba(255, 205, 0, 0.12) 0%, #f7f7f5 28%, #f7f7f5 100%);
+      min-height: 100vh;
+    }
+
+    .background-shape {
+      position: fixed;
+      inset: -20vh auto auto -10vw;
+      width: 60vw;
+      height: 60vw;
+      background: radial-gradient(circle at 40% 40%, rgba(255, 205, 0, 0.35), rgba(255, 205, 0, 0));
+      filter: blur(10px);
+      z-index: -2;
+    }
+
+    .background-shape.secondary {
+      inset: auto -15vw -20vh auto;
+      width: 55vw;
+      height: 55vw;
+      background: radial-gradient(circle at 60% 60%, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0));
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 20px 80px;
+    }
+
+    header {
+      display: grid;
+      gap: 28px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      align-items: center;
+      padding: 24px;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(10, 10, 10, 0.12);
+    }
+
+    .title {
+      font-family: "Fraunces", "Times New Roman", serif;
+      font-size: clamp(2rem, 2.6vw + 1rem, 3.3rem);
+      line-height: 1.05;
+      margin: 0 0 8px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin: 0 0 20px;
+    }
+
+    .hero-meta {
+      display: grid;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .button {
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .button.primary {
+      background: var(--accent);
+      color: #111111;
+      box-shadow: 0 12px 25px rgba(255, 205, 0, 0.35);
+    }
+
+    .button.secondary {
+      background: #111111;
+      color: var(--accent);
+      border-color: #111111;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(11, 27, 42, 0.15);
+    }
+
+    .portrait {
+      background: linear-gradient(145deg, rgba(255, 205, 0, 0.14), rgba(17, 17, 17, 0.08));
+      border-radius: var(--radius);
+      padding: 22px;
+      display: grid;
+      gap: 16px;
+      min-height: 260px;
+      justify-items: center;
+      align-content: center;
+      text-align: center;
+    }
+
+    .portrait-photos {
+      position: relative;
+      width: 320px;
+      height: 320px;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: 0 18px 28px rgba(11, 27, 42, 0.18);
+      border: 2px solid rgba(17, 17, 17, 0.35);
+      cursor: pointer;
+    }
+
+    .portrait-photos img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      animation: fadeCycle 10s infinite;
+    }
+
+    .portrait-photos img:nth-child(2) {
+      animation-delay: 5s;
+    }
+
+    @keyframes fadeCycle {
+      0% { opacity: 0; }
+      10% { opacity: 1; }
+      40% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    .portrait strong {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .portrait-audio {
+      display: grid;
+      gap: 8px;
+      align-items: center;
+      justify-items: center;
+    }
+
+    .portrait-audio label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .audio-controls {
+      display: grid;
+      gap: 8px;
+      width: 100%;
+      justify-items: center;
+    }
+
+    .play-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid #111111;
+      background: var(--accent);
+      color: #111111;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .play-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.2);
+      background: #ffd429;
+    }
+
+    .play-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #111111;
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    .play-button.is-playing .play-icon {
+      background: #111111;
+      color: #ffffff;
+    }
+
+    .seek-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      align-items: center;
+      width: 260px;
+    }
+
+    .seek-row input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    .portrait-audio audio {
+      display: none;
+    }
+
+    section {
+      margin-top: 32px;
+      display: grid;
+      gap: 20px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 22px;
+      border: 1px solid rgba(10, 10, 10, 0.12);
+      box-shadow: 0 16px 30px rgba(10, 10, 10, 0.1);
+    }
+
+    .card h2 {
+      font-family: "Fraunces", "Times New Roman", serif;
+      margin: 0 0 12px;
+      font-size: 1.6rem;
+    }
+
+    .chip-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 205, 0, 0.2);
+      border: 1px solid rgba(17, 17, 17, 0.2);
+      color: #111111;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .timeline-item {
+      display: grid;
+      gap: 6px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .timeline-item strong {
+      font-size: 1rem;
+    }
+
+    .label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+    }
+
+    .contact {
+      display: grid;
+      gap: 6px;
+      font-size: 0.98rem;
+    }
+
+    .publications {
+      display: grid;
+      gap: 16px;
+    }
+
+    .pub-search {
+      display: grid;
+      gap: 10px;
+    }
+
+    .pub-search input {
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    .pub-count {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .pub-list {
+      display: grid;
+      gap: 10px;
+      max-height: 520px;
+      overflow: auto;
+      padding-right: 6px;
+    }
+
+    .pub-item {
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.65);
+    }
+
+    .pub-item a {
+      color: var(--accent);
+    }
+
+    details {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    details summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--accent);
+      list-style: none;
+    }
+
+    details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 720px) {
+      header {
+        padding: 20px;
+      }
+
+      .pub-list {
+        max-height: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-shape"></div>
+  <div class="background-shape secondary"></div>
+
+  <div class="container">
+    <header>
+      <div>
+        <p class="label" data-en="University of Iowa · Carver College of Medicine" data-yue="愛荷華大學 · Carver 醫學院">University of Iowa · Carver College of Medicine</p>
+        <h1 class="title">Simon C. Kao, MBBS, DMRD, FRCR, FACR</h1>
+        <p class="subtitle" data-en="Professor of Radiology — Division of Pediatric Radiology, University of Iowa" data-yue="放射科教授 — 兒童放射科分部，愛荷華大學">Professor of Radiology — Division of Pediatric Radiology, University of Iowa</p>
+        <div class="hero-meta">
+          <div>
+            <strong data-en="Focus:" data-yue="重點：">Focus:</strong>
+            <span data-en="Pediatric imaging excellence, precision diagnostics, and compassionate care" data-yue="兒童影像卓越、精準診斷與關懷照護">Pediatric imaging excellence, precision diagnostics, and compassionate care</span>
+          </div>
+          <div>
+            <strong data-en="Clinical Profile:" data-yue="臨床檔案：">Clinical Profile:</strong>
+            <span data-en="University of Iowa" data-yue="愛荷華大學">University of Iowa</span>
+          </div>
+          <div>
+            <strong data-en="ORCID:" data-yue="ORCID：">ORCID:</strong>
+            <span data-en="Record available upon request" data-yue="如需可提供">Record available upon request</span>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a class="button primary" href="#contact" data-en="Contact" data-yue="聯絡">Contact</a>
+          <a class="button secondary" href="#publications" data-en="Publications" data-yue="出版">Publications</a>
+        </div>
+      </div>
+      <div class="portrait">
+        <div class="portrait-photos" id="langToggle" role="button" aria-label="Toggle language">
+          <img src="file_0000000049787230a3dd31ae0a30348a.png" alt="Portrait of Simon C. Kao" />
+          <img src="file_000000007fe071f591e939b061df5f96.png" alt="Portrait of Simon C. Kao" />
+        </div>
+        <div class="portrait-audio">
+          <label data-en="Play Theme" data-yue="播放主題曲">Play Theme</label>
+          <div class="audio-controls">
+            <button class="play-button" type="button" id="playButton">
+              <span class="play-icon" id="playIcon">▶</span>
+              <span id="playText">Play</span>
+            </button>
+            <div class="seek-row">
+              <input type="range" id="seekBar" min="0" max="100" value="0" />
+            </div>
+          </div>
+          <audio id="themeAudio" preload="metadata">
+            <source src="kKWA3aOjsXg.mp3" type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+        <strong data-en="Professor, Pediatric Radiology" data-yue="兒童放射科教授">Professor, Pediatric Radiology</strong>
+        <span data-en="University of Iowa" data-yue="愛荷華大學">University of Iowa</span>
+      </div>
+    </header>
+
+    <section class="grid-2">
+      <div class="card">
+        <h2 data-en="Primary Office" data-yue="主要辦公室">Primary Office</h2>
+        <div class="contact" id="contact">
+          <span>3885 Pappajohn Pavilion (JPP)</span>
+          <span>200 Hawkins Drive</span>
+          <span>Iowa City, IA 52242</span>
+        </div>
+      </div>
+      <div class="card">
+        <h2 data-en="Current Positions" data-yue="現任職位">Current Positions</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <strong data-en="Professor of Radiology" data-yue="放射科教授">Professor of Radiology</strong>
+            <span data-en="Division of Pediatric Radiology" data-yue="兒童放射科分部">Division of Pediatric Radiology</span>
+          </div>
+          <div class="timeline-item">
+            <strong data-en="Holden Comprehensive Cancer Center" data-yue="Holden 綜合癌症中心">Holden Comprehensive Cancer Center</strong>
+            <span data-en="Experimental and Redox Therapeutics (ERT) — Affiliate Member" data-yue="實驗與氧化還原治療（ERT）— 附屬成員">Experimental and Redox Therapeutics (ERT) — Affiliate Member</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid-2">
+      <div class="card">
+        <h2 data-en="Education" data-yue="教育背景">Education</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <strong data-en="MBBS in Medicine/Surgery" data-yue="內外全科醫學士（MBBS）">MBBS in Medicine/Surgery</strong>
+            <span data-en="College of Medicine, The University of Hong Kong, Hong Kong, China" data-yue="香港大學醫學院，中國香港">College of Medicine, The University of Hong Kong, Hong Kong, China</span>
+          </div>
+          <div class="timeline-item">
+            <strong data-en="Resident in Diagnostic Radiology" data-yue="診斷放射科住院醫師">Resident in Diagnostic Radiology</strong>
+            <span data-en="University of Iowa Carver College of Medicine" data-yue="愛荷華大學 Carver 醫學院">University of Iowa Carver College of Medicine</span>
+          </div>
+          <div class="timeline-item">
+            <strong data-en="Resident in Diagnostic Radiology" data-yue="診斷放射科住院醫師">Resident in Diagnostic Radiology</strong>
+            <span data-en="University of Iowa Hospitals & Clinics, Iowa City, IA" data-yue="愛荷華大學醫院及診所，愛荷華市">University of Iowa Hospitals & Clinics, Iowa City, IA</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h2 data-en="Licenses & Certifications" data-yue="執照與資格">Licenses & Certifications</h2>
+        <div class="timeline">
+          <div class="timeline-item" data-en="Fellow of Royal College of Radiologists (FRCR), United Kingdom" data-yue="英國皇家放射科醫學院院士（FRCR）">Fellow of Royal College of Radiologists (FRCR), United Kingdom</div>
+          <div class="timeline-item" data-en="Diagnostic Radiology/Pediatric Radiology, American Board of Radiology (ABR)" data-yue="美國放射科醫學委員會（ABR）診斷放射科／兒科放射科">Diagnostic Radiology/Pediatric Radiology, American Board of Radiology (ABR)</div>
+          <div class="timeline-item" data-en="Certificate of Added Qualification (CAQ) in Pediatric Radiology, ABR" data-yue="美國放射科醫學委員會（ABR）兒科放射科附加資格（CAQ）">Certificate of Added Qualification (CAQ) in Pediatric Radiology, ABR</div>
+          <div class="timeline-item" data-en="Diplomate, American Board of Radiology (ABR)" data-yue="美國放射科醫學委員會（ABR）認證醫師">Diplomate, American Board of Radiology (ABR)</div>
+          <div class="timeline-item" data-en="Iowa Medical License (Permanent), Iowa Board of Medicine" data-yue="愛荷華州醫學委員會永久醫師執照">Iowa Medical License (Permanent), Iowa Board of Medicine</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="card">
+        <h2 data-en="Research Interests" data-yue="研究方向">Research Interests</h2>
+        <div class="chip-list">
+          <span class="chip" data-en="Pediatric ultrasound & Doppler techniques" data-yue="兒童超聲與多普勒技術">Pediatric ultrasound & Doppler techniques</span>
+          <span class="chip" data-en="3D CT in pediatric tumors & mediastinal vasculatures" data-yue="兒童腫瘤及縱隔血管的 3D CT">3D CT in pediatric tumors & mediastinal vasculatures</span>
+          <span class="chip" data-en="MR angiography for visceral vasculature" data-yue="內臟血管磁共振血管造影">MR angiography for visceral vasculature</span>
+          <span class="chip" data-en="Ultrafast CT in airway problems" data-yue="氣道問題的超高速 CT">Ultrafast CT in airway problems</span>
+          <span class="chip" data-en="Thin-section CT in cystic fibrosis" data-yue="囊性纖維化薄層 CT">Thin-section CT in cystic fibrosis</span>
+          <span class="chip" data-en="Portal venous flow physiology in children" data-yue="兒童門靜脈血流生理">Portal venous flow physiology in children</span>
+          <span class="chip" data-en="Gastrointestinal imaging" data-yue="胃腸影像">Gastrointestinal imaging</span>
+          <span class="chip" data-en="Imaging of liver transplantation" data-yue="肝移植影像">Imaging of liver transplantation</span>
+          <span class="chip" data-en="MRI in dermoid fibromatosis" data-yue="皮樣纖維瘤病的 MRI">MRI in dermoid fibromatosis</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="publications" class="publications">
+      <div class="card">
+        <h2 data-en="Selected Publications & Contributions" data-yue="精選出版與貢獻">Selected Publications & Contributions</h2>
+        <p class="subtitle" data-en="A curated highlight of major works, followed by a complete, searchable bibliography." data-yue="精選重點作品，並提供完整可搜尋出版列表。">A curated highlight of major works, followed by a complete, searchable bibliography.</p>
+        <div class="timeline">
+          <div class="timeline-item">Kao SC. How Can We Advance the Imaging of Pediatric Low Back Pain Using Minimal Ionizing Radiation? AJR Am J Roentgenol. 2025 Dec 10. doi: 10.2214/AJR.25.34331.</div>
+          <div class="timeline-item">Terwisscha van Scheltinga S, et al. Lymph Node Staging and Treatment in Pediatric Patients With Soft Tissue Sarcomas. Pediatr Blood Cancer. 2025 Apr;72(4):e31538. doi: 10.1002/pbc.31538.</div>
+          <div class="timeline-item">Spunt SL, et al. Embryonal sarcoma of the liver in pediatric and young adult patients. Cancer. 2024 Aug 1;130(15):2683-2693. doi: 10.1002/cncr.35305.</div>
+          <div class="timeline-item">Pace E, et al. Imaging of pediatric extragonadal pelvic soft tissue tumors. Pediatr Blood Cancer. 2023 Jun;70 Suppl 4:e29966. doi: 10.1002/pbc.29966.</div>
+          <div class="timeline-item">Venkatramani R, et al. Synovial Sarcoma in Children, Adolescents, and Young Adults. J Clin Oncol. 2021 Oct 8. doi: 10.1200/JCO.21.01628.</div>
+          <div class="timeline-item">Sargar KM, Singh AK, Kao SC. Imaging of Skeletal Disorders Caused by FGFR Gene Mutations. Radiographics. 2017 Oct;37(6):1813-1830. doi: 10.1148/rg.2017170017.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 data-en="Complete Publications List" data-yue="完整出版列表">Complete Publications List</h2>
+        <div class="pub-search">
+          <input id="pubFilter" type="search" placeholder="Filter by keyword, year, journal, or DOI" aria-label="Filter publications" data-en-placeholder="Filter by keyword, year, journal, or DOI" data-yue-placeholder="按關鍵字、年份、期刊或 DOI 篩選" />
+          <span class="pub-count" id="pubCount" data-en="Loading publications…" data-yue="正在載入出版列表…">Loading publications…</span>
+        </div>
+        <div class="pub-list" id="pubList"></div>
+      </div>
+    </section>
+
+    <section class="grid-2">
+      <div class="card">
+        <h2 data-en="Clinical Profile" data-yue="臨床檔案">Clinical Profile</h2>
+        <p class="subtitle" data-en="Clinical profile and ORCID links can be added to connect students, colleagues, and collaborators." data-yue="可加入臨床檔案與 ORCID 連結，方便學生、同事與合作夥伴查閱。">Clinical profile and ORCID links can be added to connect students, colleagues, and collaborators.</p>
+        <details>
+          <summary data-en="Requested links" data-yue="需要的連結">Requested links</summary>
+          <p data-en="Add direct URLs for the Clinical Profile and ORCID record if you want them visible on the page." data-yue="如需顯示，請加入臨床檔案及 ORCID 的直接連結。">Add direct URLs for the Clinical Profile and ORCID record if you want them visible on the page.</p>
+        </details>
+      </div>
+      <div class="card">
+        <h2 data-en="Teaching & Service" data-yue="教學與服務">Teaching & Service</h2>
+        <p class="subtitle" data-en="Known for mentorship, clarity in teaching, and a collaborative approach to pediatric care." data-yue="以悉心指導、清晰教學與跨團隊合作的兒科照護著稱。">Known for mentorship, clarity in teaching, and a collaborative approach to pediatric care.</p>
+        <details>
+          <summary data-en="Highlights to add" data-yue="可加入重點">Highlights to add</summary>
+          <p data-en="Provide any awards, leadership roles, or keynote lectures to expand this section." data-yue="可補充獎項、領導職務或主題演講。">Provide any awards, leadership roles, or keynote lectures to expand this section.</p>
+        </details>
+      </div>
+    </section>
+
+    <footer>
+      <span data-en="A tribute to a life of service in pediatric radiology, teaching, and research." data-yue="向致力於兒童放射科、教學與研究的服務精神致敬。">A tribute to a life of service in pediatric radiology, teaching, and research.</span>
+    </footer>
+  </div>
+
+  <script>
+    let currentLang = "en";
+    const langToggle = document.getElementById("langToggle");
+    const translatables = document.querySelectorAll("[data-en][data-yue]");
+    const pubList = document.getElementById("pubList");
+    const pubCount = document.getElementById("pubCount");
+    const pubFilter = document.getElementById("pubFilter");
+
+    const audio = document.getElementById("themeAudio");
+    const playButton = document.getElementById("playButton");
+    const playIcon = document.getElementById("playIcon");
+    const playText = document.getElementById("playText");
+    const seekBar = document.getElementById("seekBar");
+
+    const applyLanguage = (lang) => {
+      translatables.forEach((node) => {
+        const text = node.getAttribute(lang === "yue" ? "data-yue" : "data-en");
+        if (text) node.textContent = text;
+      });
+
+      const placeholder = pubFilter.getAttribute(lang === "yue" ? "data-yue-placeholder" : "data-en-placeholder");
+      if (placeholder) pubFilter.setAttribute("placeholder", placeholder);
+
+      playText.textContent = audio.paused ? (lang === "yue" ? "播放" : "Play") : (lang === "yue" ? "暫停" : "Pause");
+      playIcon.textContent = audio.paused ? "▶" : "❚❚";
+      renderPublications(pubFilter.value);
+    };
+
+    langToggle.addEventListener("click", () => {
+      currentLang = currentLang === "en" ? "yue" : "en";
+      applyLanguage(currentLang);
+    });
+
+    playButton.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
+
+    audio.addEventListener("play", () => {
+      playButton.classList.add("is-playing");
+      playIcon.textContent = "❚❚";
+      playText.textContent = currentLang === "yue" ? "暫停" : "Pause";
+    });
+
+    audio.addEventListener("pause", () => {
+      playButton.classList.remove("is-playing");
+      playIcon.textContent = "▶";
+      playText.textContent = currentLang === "yue" ? "播放" : "Play";
+    });
+
+    audio.addEventListener("loadedmetadata", () => {
+      seekBar.max = Math.floor(audio.duration || 0);
+    });
+
+    audio.addEventListener("timeupdate", () => {
+      seekBar.value = Math.floor(audio.currentTime || 0);
+    });
+
+    seekBar.addEventListener("input", () => {
+      audio.currentTime = Number(seekBar.value);
+    });
+
+    const publications = [
+      "Radiology of Syndromes, Metabolic Diseases, and Skeletal Dysplasias (3rd Ed., Taybi H and Lachman RS, Eds.), 1990. (Published in Radiology. 1992;182:656.)",
+      "Davis PJ and Cladis FP (eds) Smith’s Anesthesia for infants and children (10th edition, 2021). (Contribution: figure and legend for Chapter 31 by Gregory Hammer, MD, reproduced from Sabiston & Spencer Surgery of the Chest, volume 1, pp119-139)",
+      "Uc A, Husain SZ. Pancreatitis in children. Gastroenterology (2019). doi: https://doi.org/10.1053/j.gastro.2018.12.043",
+      "Weinberger M. Tracheomalacia and protracted bacterial bronchitis resulting from straight back syndrome: a case report. Pediatr Allergy Immunol Pulmonol. 2017;30(2):116-119. doi: 10.1089/ped.2017.0751",
+      "Khanna G, Sargar K, Baszis K. Pediatric vasculitis for the body imager. Radiographics (May-June 2015).",
+      "Uc A and Wilschanski M. Hereditary pancreatitis and chronic pancreatitis in children. In Textbook of Pediatric Gastroenterology, Hepatology and Nutrition.",
+      "Sherman SK and Howe JR. Tumors of the Small Bowel. In McGraw-Hill's Textbook of Surgical Oncology. 2014.",
+      "Kernstine KH, Van Natta TL, Burkhart HM, De Armond DT. Congenital Lung Diseases. In Sabiston & Spencer Surgery of the Chest, volume 1, pp119-139, 2005.",
+      "Lai Lillian, Kirby P, Kao SC. Neuroblastoma. ACR Learning File R Online, Pediatric Radiology. Pending Release 2014.",
+      "Singh AK, Sato Y, Kao SC, Michael P D’Alessandro. CT of the temporal bone: Learning CT anatomy with pathological correlation. 2009.",
+      "Singh AK, Sato Y, Kao SC, D’Alessandro M. Pallister-Hall syndrome. 2009.",
+      "Singh AK, D’Alessandro MP, Kao SCS, Sato Y. Vein of Galen malformation. The Internet Journal of Radiology Volume 10, number 2, 2009.",
+      "Singh AK, Sato Y, Kao SC, D’Alessandro M. Rhombencephalosynapsis. Pediatric Education. December 3, 2007. https://pediatriceducation.org/2007/12/03/rhombencephalosynapsis/",
+      "Kao S. How old are those subdural hematomas? Pediatric Education. December 3, 2007. https://pediatriceducation.org/2007/12/03/how-old-are-those-subdural-hematomas/",
+      "Davis PJ, Cladis FP. Smith’s Anesthesia for infants and children (10th edition, 2021).",
+      "Uc A, Wilschanski M. Hereditary pancreatitis and chronic pancreatitis in children. In Textbook of Pediatric Gastroenterology, Hepatology, and Nutrition. pp 395-403.",
+      "Kao SCS and Franken EA Jr. The acute abdomen in infants and children. In Current Practice in Radiology, 1993.",
+      "Gu A, Kao SC, Schmitz A. A dynamic neck mass in an infant: expanding the differential. Pediatric in Review - Visual Diagnosis.",
+      "Modi KA, Kao SC, Lai LM. Dual energy CT applications in pediatric urology. Dialogues in Pediatric Urology (Fall 2024 edition, pp.14-15).",
+      "Million L, Hayes-Jordan A, Chi YY, Donaldson SS, Wolden S, Morris C, Terezakis S, Laurie F, Morano K, Fitzgerald TJ, Yock TI, Rodeberg DA, Anderson JR, Speights RA, Black JO, Coffin C, McCarville MB, Kao SC, Hawkins DS, Spunt SL. Local control for high-grade nonrhabdomyosarcoma soft tissue sarcoma assigned to radiation therapy on ARST0332. Int J Radiat Oncol Biol Phys. 2021;110(3):821–830. doi: 10.1016/j.ijrobp.2021.01.05",
+      "Priya S, Kao SCS. Jet phenomenon in enterovesical fistula from Crohn disease. Henry Journal of Case Reports & Imaging (2019) 3:009.",
+      "Spunt SL, Million L, Chi YY, Anderson J, Tian J, Hibbitts E, Kao SC, et al. Prospective analysis of a risk-based treatment strategy for non-rhabdomyosarcoma soft tissue sarcomas. Lancet Oncol. 2020;21(1):145–161. doi: https://doi.org/10.1016/S1470-2045(19)30672-2",
+      "Singh A, Kao SCS, D’Alessandro M, Sato Y. Diagnosis Please, Part 2 (Case 164): Funicular type of spermatic cord hydrocele. Radiology 257:890-892, 2010.",
+      "Singh A, Kao SCS, D’Alessandro M, Sato Y. Diagnosis Please, Part 1 (Case 164): Funicular type of spermatic cord hydrocele. Radiology 256:665-666, 2010.",
+      "Yuh WTC, Nguyen HD, Fisher DJ, Tali ET, Gao F, Simonson TM, Kao SCS, Weiner CP. MR of fetal central nervous system abnormalities. AJNR Am J Neuroradiol. 1994;15(3):459–464. http://www.ajnr.org/content/15/3/459",
+      "Seabold JE, Flickinger FW, Kao SCS, Gleason TJ, Kahn D, Nepola JV, Marsh JL. Indium-111-leukocyte/technetium-99m-MDP bone and MRI. J Nucl Med. 1990;31(5):549–556. https://jnm.snmjournals.org/content/31/5/549",
+      "Franken EA Jr, Driscoll CE, Berbaum KS, Smith WL, Sato Y, Steinkraus LW, Kao SCS. Teleradiology for a family practice center. JAMA. 1989;261(20):3014–3015. doi: https://doi.org/10.1001/jama.1989.03420200104046",
+      "Kao SC, Smith WL, Sato Y, Franken EA Jr, Kimura K, Soper RT. Ultrafast CT of laryngeal and tracheobronchial obstruction. AJR Am J Roentgenol. 1990;154(2):345–350. doi: 10.2214/ajr.154.2.2105029",
+      "Kao SC. How Can We Advance the Imaging of Pediatric Low Back Pain Using Minimal Ionizing Radiation? AJR Am J Roentgenol. 2025 Dec 10. doi: 10.2214/AJR.25.34331.",
+      "Terwisscha van Scheltinga S, Schoot RA, Routh JC, Seitz G, Kao SC, de Keizer B, Shulkin B, Ewijk RV, McCarville B, Casey D, Allen-Rhoades W, Mercolini F, Merks H, Orbach D, Kapadia T, Walterhouse DO, Davila Fajardo R, Hiemcke-Jiwa L, Franzius C, De Corti F, Tang V, Metts J, Oberoi S, Vokuhl C, Dasgupta R, Birz S, Rodeberg D. Lymph Node Staging and Treatment in Pediatric Patients With Soft Tissue Sarcomas. Pediatr Blood Cancer. 2025 Apr;72(4):e31538. doi: 10.1002/pbc.31538.",
+      "Spunt SL, Xue W, Gao Z, Hayes Dixon A, Million L, Polites SF, Vasudevan SA, Kao SC, McCarville MB, Parham DM, Barkauskas DA, Cai Z, Cost C, Mascarenhas L, Weiss AR. Embryonal sarcoma of the liver in pediatric and young adult patients. Cancer. 2024 Aug 1;130(15):2683-2693. doi: 10.1002/cncr.35305.",
+      "Schoot RA, van Ewijk R, von Witzleben AA, Kao SC, Hans Merks JHM, Morosi C, Pace E, Shulkin BL, Ferrari A, von Kalle T, van Rijn RR, Weiss AR, Sparber-Sauer M, Ter Horst SAJ, Beth McCarville M. Corrigendum to INSTRuCT consensus statement. Eur J Radiol. 2023 Nov;168:111108. doi: 10.1016/j.ejrad.2023.111108.",
+      "Schoot RA, van Ewijk R, von Witzleben AA, Kao SC, Merks JHMH, Morosi C, Pace E, Shulkin BL, Ferrari A, von Kalle T, van Rijn RR, Weiss AR, Sparber-Sauer M, Ter Horst SAJ, McCarville MB. INSTRuCT consensus statement: Imaging recommendations for rhabdomyosarcoma. Eur J Radiol. 2023 Sep;166:111012. doi: 10.1016/j.ejrad.2023.111012.",
+      "Weiss AR, Chen YL, Scharschmidt TJ, Xue W, Gao Z, Black JO, Choy E, Davis JL, Fanburg-Smith JC, Kao SC, Kayton ML, Kessel S, Lim R, Million L, Okuno SH, Ostrenga A, Parisi MT, Pryma DA, Randall RL, Rosen MA, Shulkin BL, Terezakis S, Venkatramani R, Zambrano E, Wang D, Hawkins DS, Spunt SL. Outcomes After Preoperative Chemoradiation With or Without Pazopanib. J Clin Oncol. 2023 Nov 1;41(31):4842-4848. doi: 10.1200/JCO.23.00045.",
+      "Alvarez E, He J, Spunt SL, Hayes-Jordan A, Kao SC, Parham DM, Million L, Weiss AR, Barkauskas DA. Lymph node metastases in paediatric and young adult patients with NRSTS. Eur J Cancer. 2023 Feb;180:89-98. doi: 10.1016/j.ejca.2022.11.014.",
+      "Pace E, Johnson TS, Kao SC, Parikh AK, Qi J, Rajderkar DA, Reid JR, Towbin AJ, States LJ. Imaging of pediatric extragonadal pelvic soft tissue tumors. Pediatr Blood Cancer. 2023 Jun;70 Suppl 4:e29966. doi: 10.1002/pbc.29966.",
+      "Kao SC. Editorial Comment: Imaging of Pediatric Chronic Pancreatitis Requires Standardized Interpretation Criteria. AJR Am J Roentgenol. 2022 Aug;219(2):314. doi: 10.2214/AJR.22.27579.",
+      "Venkatramani R, Xue W, Randall RL, Wolden S, Anderson J, Lopez-Terrada D, Black J, Kao SC, Shulkin B, Ostrenga A, Pappo A, Spunt SL. Synovial Sarcoma in Children, Adolescents, and Young Adults. J Clin Oncol. 2021 Oct 8. doi: 10.1200/JCO.21.01628.",
+      "Subramani S, Bellizzi AM, Borcherding N, Kao SC, Dillon J, Howe J, Norris AW, Tansey MJ, Pinnaro CT. Hypoglycemia secondary to insulinoma masking the onset of type 1 diabetes. Clin Case Rep. 2021 Sep 24;9(9):e04868. doi: 10.1002/ccr3.4868.",
+      "Million L, Hayes-Jordan A, Chi YY, Donaldson SS, Wolden S, Morris C, Terezakis S, Laurie F, Morano K, Fitzgerald TJ, Yock TI, Rodeberg DA, Anderson JR, Speights RA, Black JO, Coffin C, McCarville MB, Kao SC, Hawkins DS, Spunt SL, Randall RL. Local Control for High-Grade Nonrhabdomyosarcoma Soft Tissue Sarcoma. Int J Radiat Oncol Biol Phys. 2021 Jul 1;110(3):821-830. doi: 10.1016/j.ijrobp.2021.01.051.",
+      "Weiss AR, Chen YL, Scharschmidt TJ, Chi YY, Tian J, Black JO, Davis JL, Fanburg-Smith JC, Zambrano E, Anderson J, Arens R, Binitie O, Choy E, Davis JW, Hayes-Jordan A, Kao SC, Kayton ML, Kessel S, Lim R, Meyer WH, Million L, Okuno SH, Ostrenga A, Parisi MT, Pryma DA, Randall RL, Rosen MA, Schlapkohl M, Shulkin BL, Smith EA, Sorger JI, Terezakis S, Hawkins DS, Spunt SL, Wang D. Pathological response in ARST1321 trial. Lancet Oncol. 2020 Aug;21(8):1110-1122. doi: 10.1016/S1470-2045(20)30325-9.",
+      "Dike CR, Kao SC, Uc A. Progression from acute to chronic pancreatitis associated with CFTR and SPINK1 mutations. Pancreatology. 2020 Jul;20(5):1019-1020. doi: 10.1016/j.pan.2020.05.012.",
+      "Spunt SL, Million L, Chi YY, Anderson J, Tian J, Hibbitts E, Coffin C, McCarville MB, Randall RL, Parham DM, Black JO, Kao SC, Hayes-Jordan A, Wolden S, Laurie F, Speights R, Kawashima E, Skapek SX, Meyer W, Pappo AS, Hawkins DS. A risk-based treatment strategy for NRSTS. Lancet Oncol. 2020 Jan;21(1):145-161. doi: 10.1016/S1470-2045(19)30672-2.",
+      "Kao SC. Overview of the clinical and imaging features of the most common non-rhabdomyosarcoma soft-tissue sarcomas. Pediatr Radiol. 2019 Oct;49(11):1524-1533. doi: 10.1007/s00247-019-04427-z.",
+      "Mascarenhas L, Chi YY, Hingorani P, Anderson JR, Lyden ER, Rodeberg DA, Indelicato DJ, Kao SC, Dasgupta R, Spunt SL, Meyer WH, Hawkins DS. Randomized Phase II Trial of Bevacizumab or Temsirolimus. J Clin Oncol. 2019 Nov 1;37(31):2866-2874. doi: 10.1200/JCO.19.00576.",
+      "Spunt SL, Francotte N, De Salvo GL, Chi YY, Zanetti I, Hayes-Jordan A, Kao SC, Orbach D, Brennan B, Weiss AR, van Noesel MM, Million L, Alaggio R, Parham DM, Kelsey A, Randall RL, McCarville MB, Bisogno G, Hawkins DS, Ferrari A. Epithelioid sarcoma outcomes. Eur J Cancer. 2019 May;112:98-106. doi: 10.1016/j.ejca.2019.02.001.",
+      "McCarville MB, Kao SC, Dao TV, Gaffney C, Coffin CM, Parham DM, Hayes-Jordan A, Spunt SL. Imaging features of epithelioid sarcoma in children. Pediatr Radiol. 2019 Jun;49(7):922-932. doi: 10.1007/s00247-019-04389-2.",
+      "Chaddock-Heyman L, Weng TB, Kienzler C, Erickson KI, Voss MW, Drollette ES, Raine LB, Kao SC, Hillman CH, Kramer AF. Scholastic performance and functional connectivity. PLoS One. 2018 Jan 24;13(1):e0190073. doi: 10.1371/journal.pone.0190073.",
+      "McHigh K, Kao SC. Response assessment: RECIST and beyond. Imaging in Pediatric Oncology. Springer-Verlag 2018 (in press).",
+      "Priya S, Gonzalez Estevez NK, Kao SC, Ashwath RC. Cardiac CT unbaffles a complex congenital heart disease case. Journal of Xiangya Medicine. 2018. doi: 10.21037/jxym.2018.05.03.",
+      "Sargar KM, Singh AK, Kao SC. Imaging of Skeletal Disorders Caused by FGFR Gene Mutations. Radiographics. 2017 Oct;37(6):1813-1830. doi: 10.1148/rg.2017170017.",
+      "Essenmacher AC, Joyce Jr PH, Kao SC, Epelman M, Pesce LM, D’Alessandro MP, Sato Y, Johnson CM, Podberesky DJ. Sonographic Evaluation of Pediatric Thyroid Nodules. Radiographics. 2017;37(6):1731-1752. doi: 10.1148/rg.2017170059.",
+      "Hajianpour MJ, Bombei H, Lieberman SM, Revell R, Krishna R, Gregorsok R, Kao SC, Milunsky JM. Dental issues in LADD syndrome. JADA 2017;148(3):157-163. doi: 10.1016/j.adaj.2016.11.016.",
+      "Kao SC. Imaging Guideline for Soft Tissue Sarcoma Committee. Children Oncology Group. 2015.",
+      "Hajianpour MJ, Bombei H, Lieberman SM, Revell R, Rachana K, Gregorsok R, Kao S, Milunsky JM. Dental issues in LADD syndrome. Resubmitted to Pediatric Dentistry after revision, 2015.",
+      "Weinberger M, Fischer A, Kao S. Diffuse panbronchiolitis in a 10-year-old boy. Pediatric Pulmonology 50(9) E32-4. doi: 10.1002/ppul.23176.",
+      "Wassef S, Kao SC, Abu-Yousef MM. Infected Urachal Cyst. Ultrasound Quarterly 31(2) 210-211. doi: 10.1097/RUQ.0000000000000154.",
+      "Sargar K, Kao SC, McCarville BM, Coffin C, Parham DM, Anderson J, Spunt SL, Hawkins D. MRI and CT of Low-Grade Fibromyxoid Sarcoma in Children. AJR Am J Roentgenol 205(2) 414-420. doi: 10.2214/AJR.14.13972.",
+      "Khanna G, Sargar K, Baszis K. Figure 8 (parts a-d) in Pediatric Vasculitis for the Body Imager. Radiographics. 2015.",
+      "Lai LM, McCarville B, Kirby P, Kao SC, Moritani T, Clark E, Ishigami K, Bahrami A, Sato Y. Pediatric inflammatory pseudotumor. Pediatric Radiology 45(12) 1738-1752. doi: 10.1007/s00247-015-3360-6.",
+      "Kao SC, Pinto A. Tumors of the Adrenal Gland. In Pediatric Tumors: Pathology and Imaging. 2015.",
+      "Aliye UC, Wilschanski M. Hereditary pancreatitis and chronic pancreatitis in children. Gastroenterology (2019);156:1969-1978. doi: https://doi.org/10.1053/j.gastro.2018.12.043.",
+      "Diwakar A, Adam RJ, Michalski AS, Tamegnon MM, Fischer AJ, Launspach JL, Horan RA, Kao SC, Chaloner K, Meyerholz DK, Stoltz DA. Abnormal tracheal cartilage ring structure in cystic fibrosis. Laryngoscope. 2015. PMID: 25827636.",
+      "Kao SC, Parham D, Fuller C. Malignant Tumors of the Peripheral Nerves. In Pediatric Tumors: Pathology and Imaging. 2015.",
+      "Ishigami K, Abu-Yousef DM, Kao SC, Abu-Yousef MM. Comparison of oral ultrasonography contrast agents. Ultrasound Quarterly 30(2) 35-38. doi: 10.1097/RUQ.0000000000000052.",
+      "McCarville MB, Muzzafar S, Kao SC, Coffin C, Parham DM, Anderson J, Spunt SL. Imaging features of alveolar soft part sarcoma. AJR Am J Roentgenol 203:1345-1352. doi: 10.2214/AJR.14.12462.",
+      "Lai L, Kirby P, Kao SC. Neuroblastoma. ACR Learning File R Online. 2014.",
+      "Sherman SK, Howe JR. Tumors of the Small Bowel. McGraw-Hill's Textbook of Surgical Oncology. 2014.",
+      "Kao SC. Imaging of adrenal tumors. In Pediatric Tumors: Pathology and Imaging. 2014.",
+      "Barañano CF, Heaford AC, Kacmarynski DS, Manaligod JM, Klein JM, Kao SC, Smith RJ. Management of tracheal stenosis in pediatric patients with pulmonary agenesis. Int J Pediatr Otorhinolaryngol. 2013.",
+      "Weiss AR, Lyden ER, Anderson JR, Hawkins DS, Spunt SL, Walterhouse DO, Wolden SL, Parham DM, Rodeberg DA, Kao SC, Womer RB. Rhabdomyosarcoma staging evaluations. J Clin Oncol. 2013.",
+      "Rosenberg AR, Anderson JR, Lyden EL, Rodeberg DA, Wolden SL, Kao SC, Parham DP, Arndt C, Hawkins DS. Early response and failure-free survival in Group III rhabdomyosarcoma. Eur J Cancer 50(4) 816-23. 2013.",
+      "Skapek SX, Anderson JR, Hill A, Henry D, Spunt SL, Meyer W, Kao S, Hoffer FA, Grier HE, Hawkins DS, Raney BR. High-dose tamoxifen and sulindac for desmoid tumor in children. Pediatr Blood Cancer 60 1108-1112. 2013.",
+      "Kao SC. Imaging of malignant peripheral nerve sheath tumors. In Pediatric Tumors: Pathology and Imaging. 2013.",
+      "Fischer AJ, Singh SB, Adam RJ, Stoltz DA, Baranano CF, Kao S, Weinberger MM, McCray PB, Starner TD. Tracheomalacia and CF. Pediatric Pulmonary 49(10) 960-970. 2013.",
+      "Rodeberg DA, Garcia-Henrequez N, Stoner JA, Randall L, Spunt S, Arndt C, Kao S, Paidas C, Million L, Hawkins DS. Tumor volume and patient weight predictors. Cancer 117 2541-2550. 2011.",
+      "Singh AK, Kao S, D'Alessandro M, Sato Y. Case 164: Funicular type of spermatic cord hydrocele. Radiology 257 (3) 890-2. 2010.",
+      "Meyerholz DK, Stoltz DA, Namati E, Ramachandran S, Pezzulo AA, Smith AR, Rector MV, Suter MJ, Kao S, McLennan G, Tearney GJ, Zabner J, McCray PB, Welsh MJ. CFTR loss and tracheal development. Am J Respir Crit Care Med 182 (10) 1251-61. 2010.",
+      "Menda Y, O'Dorisio MS, Kao S, Khanna G, Michael S, Connolly M, Babich J, O'Dorisio T, Bushnell D, Madsen M. Phase I trial of 90Y-DOTATOC therapy. J Nucl Med 51(10) 1524-31. 2010.",
+      "Singh AK, Kao SC. Torsion of testicular appendage. Pediatric Radiology 40(3) 373. 2010.",
+      "Singh AK, Sato Y, Kao SC, D’Alessandro M. Pallister-Hall syndrome. 2009.",
+      "Rodeberg DA, Stoner JA, Hayes-Jordan A, Kao SC, Wolden SL, Qualman SJ, Meyer WH, Hawkins DS. Tumor response in Group III rhabdomyosarcoma. J Clin Oncol 27(22) 3705-11. 2009.",
+      "Singh AK, Sato Y, Kao SC, D’Alessandro M. Rhombencephalosynapsis. EuroRad Teaching Files. 2009.",
+      "Singh AK, D’Alessandro MP, Kao SC, Sato Y. Vein of Galen malformation. The Internet Journal of Radiology. 2009.",
+      "Singh AK, Sato Y, Kao SC, D’Alessandro MP. CT of Temporal Bone: Learning CT anatomy with pathologic Correlation. Neurographics 8(3). 2009.",
+      "Zeng K, Fajardo LL, Kao S, Franken EA, Park JM, Jing Z, Bai EW, Wang G. In vitro evaluation of cone-beam breast CT methods. J X-ray Sci Technol 16(3) 171-187. 2008.",
+      "Khanna G, O'Dorisio SM, Menda Y, Kirby P, Kao S, Sato Y. Gastroenteropancreatic neuroendocrine tumors. Pediatr Radiol 38(3) 251-9. 2008.",
+      "Burke M, Anderson JR, Kao SC, Rodeberg D, Qualman SJ, Wolden SL, Meyer WH, Breitfeld PP. Response to induction therapy in RMS. J Clin Oncol 25(31) 4909-13. 2007.",
+      "Morriss J, Moreland J, Burkhart H, Kao SCS. Pre-surgical evaluation of interrupted aortic arch. Ann Thorac Surg 84(1) 299. 2007.",
+      "Khanna G, Sato Y, Kao S, D’Alessandro M, Kirby P. Pediatric Case of the Day (5 cases). RSNA. 2007.",
+      "Gallagher BL, Vibhakar R, Kao S, Cooper CS. Bilateral testicular masses: unusual neuroblastoma presentation. Urology 68(3) 672.e15-7. 2006.",
+      "McCarville MB, Kao SC. Imaging recommendations for malignant liver neoplasms in children. Pediatr Blood Cancer 46(1). 2006.",
+      "Kao SC, Franken Jr EA. The child with abdominal pain. Practical Pediatric Radiology (3rd), pp. 463-496. 2006.",
+      "Kernstine KH, Van Natta TL, Burkhart HM, De Armond DT. Congenital Lung Diseases. 2005.",
+      "Khanna G, Kao SC, Kirby P, Sato Y. Imaging of chronic granulomatous disease in children. Radiographics 25(5) 1183-95. 2005.",
+      "Kao SC. Author/coauthor for chapters in Imaging Children. Elsevier. 2005.",
+      "McHugh K, Kao SC. Can paediatric radiologists resist RECIST. Pediatr Radiol 33(11) 739-43. 2003.",
+      "McHugh K, Kao SC. RECIST problems and need for modifications in pediatric oncology. Br J Radiol 76(907) 433-6. 2003.",
+      "Harty MP, Kao SC. Osteopetrosis and pyknodysostosis. Essentials of Musculoskeletal Imaging. 2003.",
+      "Harty MP, Kao SC. Intraosseous vascular access defect. Pediatr Radiol 32(3) 188-90. 2002.",
+      "Kao SC. Radiology of soft tissues in children. Grainger and Allison’s Diagnostic Radiology. 2001.",
+      "Kao SC. Radiology of arthritides in children. Grainger and Allison’s Diagnostic Radiology. 2001.",
+      "Van Beek JT, Sharafuddin MJ, Kao SC, Luisiri A, Garibaldi LR. Pituitary size on MR imaging after suppressive therapy. Pediatr Radiol 30(7) 444-6. 2000.",
+      "Kao SC, Ehrhardt JC, Sato Y, D'Alessandro MP, Smith WL. Pediatric extracranial applications of MR angiography. Clin Imaging 23(5) 271-83. 2000.",
+      "S Kao SC. Mineralizing lenticulostriate vasculopathy: Case of the day. J Ultrasound Med 19:362. 2000.",
+      "Kao SC, Adamson SD, Tatman LH, Berbaum KS. Post-discharge side effects of chloral hydrate sedation. Pediatr Radiol 29(4) 287-90. 1999.",
+      "Kao SC, Wang G. Radiologic volumetry on a personal computer. Acad Radiol 5(10) 665-9. 1998.",
+      "Uc A, Kao SC, Sanders KD, Lawrence J. Gastric volvulus and wandering spleen. Am J Gastroenterol 93(7) 1146-8. 1998.",
+      "Takano H, Smith WL, Sato Y, Kao SC. Cervical spine abnormalities in warfarin-related chondrodysplasia. Pediatr Radiol 28(7) 497-9. 1998.",
+      "Aideyan UO, Kao SC. Urinary bladder rhabdomyosarcoma in Beckwith-Wiedemann syndrome. Clin Radiol 53(6) 457-9. 1998.",
+      "Uc A, Mitros FA, Kao SC, Sanders KD. Pseudomembranous colitis with E. coli O157:H7. J Pediatr Gastroenterol Nutr 24(5) 590-3. 1997.",
+      "Kao SC, Smith WL. Skeletal injuries in the pediatric patient. Radiol Clin North Am 35(3) 727-46. 1997.",
+      "Takano H, Sato Y, Kao SC, D’Alessandro MP. Enlarging giant liver cyst in Beckwith-Wiedemann syndrome. Pediatr Radiol 27 619-620. 1997.",
+      "Kao SC, Franken EA Jr. Imaging techniques in GI and hepatic disease. Curr Opin Pediatr 8(5) 487-94. 1996.",
+      "Kao SC, Muir LV, Kimura K. Combined hypertrophic pyloric stenosis and duodenal web in Down syndrome. J Ultrasound Med 15(6) 475-7. 1996.",
+      "Bauman NM, Oyos TL, Murray DJ, Kao SC, Biavati MJ, Smith RJ. Postoperative care following single-stage laryngotracheoplasty. Ann Otol Rhinol Laryngol 105(4) 317-22. 1996.",
+      "Kao SC, Bell EF, Brown BP, Smith WL. Duplex Doppler portal vein flow in term newborns after feeding. J Ultrasound Med 15(2) 121-5. 1996.",
+      "Kao SC, Franken Jr EA. Radiologic imaging procedures. Abdominal Surgery of Infancy and Childhood. 1996.",
+      "Kao SC, Kimura K, Smith WL, Sato Y. Tracheomalacia before and after aortosternopexy. Pediatr Radiol 25(Suppl 1) S187-93. 1995.",
+      "Ben-Haim S, Seabold JE, Kao SC, Johnson J, Tran D, Brown BP. Tc-99m mebrofenin scintigraphy in infantile jaundice. Clin Nucl Med 20(2) 153-63. 1995.",
+      "Kao SC, Franken EA. Nonoperative treatment of simple meconium ileus. Pediatr Radiol 25(2) 97-100. 1995.",
+      "Galvin JR, Gingrich RD, Hoffman E, Kao SC, Stern EJ, Stanford W. Ultrafast computed tomography of the chest. Radiol Clin North Am 32(4) 775-93. 1994.",
+      "Yuh WTC, Nguyen HD, Fisher DJ, Tali ET, Gao F, Simonson TM, Kao SC, Weiner CP. MR of fetal CNS abnormalities. AJNR 15(3) 459-64. 1994.",
+      "Kao SC, Franken Jr EA. The child with abdominal pain. Practical Pediatric Radiology (2nd), 1994.",
+      "Berbaum KS, El-Khoury GY, Franken EA, Kuehn DM, Meis DM, Dorfman DD, Warnock NG, Thompson BH, Kao SC, Kathol MH. Missed fractures resulting from satisfaction of search effect. Emerg Radiol. 1994.",
+      "Aideyan UO, Kao SC. Gastric adenocarcinoma metastatic to the testes in Peutz-Jeghers syndrome. Pediatr Radiol 24(7) 496-7. 1994.",
+      "Kao SC, Franken Jr EA. Gastrointestinal imaging. Pediatric Gastrointestinal Disease. 1993.",
+      "Nosaka S, Kao SC. MRI of malignant triton tumor in a child. Clin Imaging 17(1) 53-5. 1993.",
+      "Nakagawa N, Cornelius AS, Kao SC, Nakajima Y, Nakada K. Transcatheter oily chemoembolization for unresectable malignant liver tumors in children. JVIR 4(3) 353-8. 1993.",
+      "Franken EA, Berbaum KS, Marley SM, Smith WL, Sato Y, Kao SC, Milam SG. Evaluation of a digital workstation for interpreting neonatal exams. Investig Radiol 27(9) 732-7. 1992.",
+      "Smith WL, Alexander RC, Judisch GF, Sato Y, Kao SC. MRI evaluation of neonates with retinal hemorrhages. Pediatrics 89(2) 332-3. 1992.",
+      "Simonson TM, Kao SC. Normal childhood developmental patterns in skull bone marrow. Pediatr Radiol 22(8) 556-9. 1992.",
+      "Kao SC, Cook JS, Hansen JR, Simonson TM. MR imaging of the pituitary gland in central precocious puberty. Pediatr Radiol 22(7) 481-4. 1992.",
+      "Kao SC, Smith WL, Franken EA, Sato Y, Sullivan JH, McGee JA. Contrast enema diagnosis of necrotizing enterocolitis. Pediatr Radiol 22(2) 115-7. 1992.",
+      "Taybi H, Lachman RS (Eds.). Radiology of Syndromes, Metabolic Diseases, and Skeletal Dysplasias. Radiology 182:656. 1992.",
+      "Bishop WP, Kao SC. Prolonged postprandial abdominal pain following Kawasaki syndrome. J Pediatr Gastroenterol Nutr 13(3) 307-11. 1991.",
+      "Yuh WTC, Buehner LS, Kao SC, Robinson RA, Dolan KD, Phillips JJ. MRI of pediatric head and neck cystic hygromas. Ann Otol Rhinol Laryngol 100(9 Pt 1) 737-42. 1991.",
+      "Berbaum KS, Franken EA, Dorfman DD, Rooholamini SA, Coffman CE, Cornell SH, Cragg AH, Galvin JR, Honda H, Kao SC. Time course of satisfaction of search. Investig Radiol 26(7) 640-8. 1991.",
+      "Sato Y, Kao SC, Smith WL. Radiographic manifestations of anomalies of the brain. Radiol Clin North Am 29(2) 179-94. 1991.",
+      "Kao SC, Brown BP, Goedken J. Sonography of intracranial air in newborn with meningomyelocele. Pediatr Radiol 21(5) 375-6. 1991.",
+      "Franken EA, Smith WL, Berbaum KS, Kao SC, Sato Y. PACS workstation vs conventional film for neonatal exams. Pediatr Radiol 21(5) 336-40. 1991.",
+      "Kao SC, Haddad SF, Menezes A, Sato Y, Smith WL, Yuh WTC, Franken Jr EA. Imaging of intracranial tumors in the first year of life. Applied Radiology 20:19-25. 1991.",
+      "Yuh WT, Sato Y, Loes DJ, Kao SC, Berbaum KS, Ryals TJ, Dolan KD. MRI and CT in pediatric head and neck masses. Ann Otol Rhinol Laryngol 100(1) 54-62. 1991.",
+      "Nelson DR, Yuh WT, Waziri MH, Ryals TJ, Sato Y, Kao SC, Hawes DR, Williams RD. MR imaging of Hippel-Lindau disease. JMRI 1(4) 469-76. 1991.",
+      "Kimura K, Soper RT, Kao SC, Sato Y, Smith WL, Franken Jr EA. Aortosternopexy for tracheomalacia. J Pediatr Surg 25(7) 769-72. 1990.",
+      "Seabold JE, Flickinger FW, Kao SC, Gleason TJ, Kahn D, Nepola JV, Marsh JL. Indium-111 leukocyte/technetium-99m-MDP bone and MRI. J Nucl Med 31(5) 549-56. 1990.",
+      "Figueroa-Colon R, Tolaymat N, Kao SC. Gallbladder sludge and lithiasis in infant of morphine user mother. J Pediatr Gastroenterol Nutr 10(2) 234-8. 1990.",
+      "Kao SC, Smith WL, Sato Y, Franken EA, Kimura K, Soper RT. Ultrafast CT of laryngeal and tracheobronchial obstruction. AJR 154(2) 345-50. 1990.",
+      "Franken Jr EA, Kao SC, Smith WL, Sato Y. Hydrostatic reduction of intussusception: Reply. AJR 154:1123. 1990.",
+      "Sato Y, Yuh WT, Smith WL, Alexander RC, Kao SC, Ellerbroek CJ. Head injury in child abuse: evaluation with MR imaging. Radiology 173(3) 653-7. 1989.",
+      "Franken EA, Kao SC, Smith WL, Sato Y. Imaging of the acute abdomen in infants and children. AJR 153(5) 921-8. 1989.",
+      "Jantarasami T, Larew M, Kao SC, Smith W. Ultrasound demonstration of nephrocalcinosis in William's syndrome. J Clin Ultrasound 17(7) 533-4. 1989.",
+      "Kao SC, Waziri MH, Smith WL, Sato Y, Yuh WT, Franken EA. MR imaging of craniovertebral junction in achondroplasia. AJR 153(3) 565-9. 1989.",
+      "Kao SC, Smith WL, Abu-Yousef MM, Franken EA, Sato Y, Kimura K, Soper RT. Acute appendicitis in children: sonographic findings. AJR 153(2) 375-9. 1989.",
+      "Barloon TJ, Yuh WT, Chiang FL, Kao SC, Sato Y, Mehringer M. Lesions involving the fourth ventricle evaluated by CT and MR. Magn Reson Imaging 7(6) 635-42. 1989.",
+      "Yuh WT, Lozano RL, Flickinger FW, Sato Y, Kao SC, Menezes AH. Lumbar epidural chordoma: MR findings. J Comput Assist Tomogr 13(3) 508-10. 1989.",
+      "Franken Jr EA, Kao SC, Smith WL, Sato Y. New modalities expand pediatric imaging's role. Diagnostic Imaging 11(12) 78-84. 1989.",
+      "Yuh WT, Wiese JA, Abu-Yousef MM, Rezai K, Sato Y, Berbaum KS, Kao SC, Hunsicker LG, Corry RJ. Pancreatic transplant imaging. Radiology 167(3) 679-83. 1988.",
+      "Kao SC, Yuh WT, Sato Y, Barloon TJ. Intracranial granulocytic sarcoma (chloroma): MR findings. J Comput Assist Tomogr 11(6) 938-41. 1987.",
+      "Brain sonography. Virtual Hospital.",
+      "Pediatric gastrointestinal ultrasound. Virtual Hospital.",
+      "Pediatric urinary tract infection. Virtual Hospital.",
+      "Pediatric abdominal mass website. Virtual Hospital.",
+      "Neonatal respiratory distress website. Virtual Hospital.",
+      "Huang L, Wang G, Kao SC, Ni J. VoluMeasure: A portable Java program for stereological volume measurement.",
+      "Kao SC. Pediatric tumor size measurement: Current practice. SPR 1998 Pediatric Imaging Course Syllabus 137-141.",
+      "Priya S, Kao S. Know your catheter: split-tip hemodialysis catheter. Radiology Case Report 14 410-414.",
+      "Kreimer SR, Shen D, Spunt SL, Kao SC, Parham D, Donaldson SS, Ladra M, Monument MJ, Barkauskas DA, Hawkins DS, Randall RL. Risk Group Accurately Predicts Outcome in Primary Extremity NRSTS. JCO 36 (15 suppl). doi: 10.1200/JCO.2018.36.15_suppl.10546.",
+      "Kompare MN, Weinberger M, Kao S, Potter D. Straight Back Syndrome in Young Child Causing Tracheomalacia and Protracted Bacterial Bronchitis. Pediatric Pulmonology.",
+      "Black JO, Coffin CM, Parham DM, Anderson JR, Hawkins DS, Randall L, Hayes-Jordan AA, Kao SC, McCarville B, Spunt SL. Pathologic diagnoses encountered in COG ARST0332. Cancer.",
+      "Han TI, Kao SC. 'Anterior beak' sign: sonographic finding of the fistula in imperforate anus.",
+      "Berg A, Sato Y, Kao SC, Moritani T, Khanna G, Oral R. Subdural Hemorrhage in Infants and Young Children. ASNR Proceedings 2009.",
+      "Hawkins D, Stoner J, Kao SC, Rodeberg D, Hayes-Jordan A, Qualman S, Wolden S, Meyer W. Residual mass prognostic significance in RMS. ASCO Proceedings 2005.",
+      "Breitfeld PP, Anderson J, Kao SC, Rodeberg D, Qualman S, Wolden S, Meyer W. Response to induction therapy and FFS in RMS. ASCO Proceedings 2004.",
+      "Khanna G, Sato Y, O’Dorisio S, Kao SC. Evaluation of pediatric CNS tumors with IN-111-Pentetreotide scintigraphy. Pediatr J 2004.",
+      "Kao S, Abu-Yousef MM. Pediatric case of the day/Quiz 6: Mineralizing lenticulostriate vasculopathy. J Ultrasound Med 2000.",
+      "Uppaluri R, Hoffman EA, Ahrens RC, Kao SC, Teresi ME, McGlennan G. CT-based measures of early CF lung disease. Ann Biomed Eng. 1998.",
+      "Sato Y, D’Alessandro MP, Kao SC, Takano H, Menezes AH. Split atlas. Pediatr Radiol. 1997.",
+      "McCubbin MM, Ahrens R, Kao SC, Seidel G, Teresi M. Pseudomonas infection and bronchiectasis in young children with CF. Pediatr Pulmonol Suppl. 1996.",
+      "Wen B, Mayr NA, Hitchon PW, Kao SC, Hussey DH. Pilocytic astrocytoma: retrospective review. Int J Radiat Oncol Biol Phys. 1996.",
+      "Kao SC, Kimura K. Utility of electron-beam CT in pediatric trachea assessment. Am J Cardiac Imaging. 1994.",
+      "Gerrits PM, Greally MT, Hansen JR, Patil SR, Matthews KD, Hanson JW, Kao SC, Williams JK, Richman JC, Chaplet GL, Heitsman JC. Abnormal regulation of growth and cognitive function in a girl with X/Y translocation. Pediatr Res. 1991.",
+      "Cook JS, Kao SC, Hansen JR. Pituitary volume correlates with hormonal parameters in central precocious puberty. Clin Res. 1991.",
+      "Cornelius AS, Nakagawa N, Kao S. Chemoembolization for resistant liver tumors in children. Pediatr Res. 1991.",
+      "Kimura K, Soper RT, Kao SC, Sato Y, Smith WL, Franken Jr EA. Tracheomalacia associated with esophageal atresia. Jpn Soc Pediatr Surg. 1990.",
+      "Sato Y, Ellerbroek C, Alexander R, Kao SC, Yuh WT, Smith WL. Brain MRI in child abuse. Radiology 1988.",
+      "Priya S, Kao SC. Enterovesical fistula. New England Journal of Medicine.",
+      "Clinical and imaging features of non-rhabdomyosarcoma soft tissue sarcomas. Pediatric Radiology.",
+      "Mascarenhas L, Chi Y, Hingorani P, Anderson JR, Lyden ER, Rodeberg DA, Indelicato DJ, Kao SC, Dasgupta R, Spunt S, Meyer WH, Hawkins DS. Randomized Phase II Trial of Bevacizumab and in Combination with Chemotherapy for First Relapse RMS. J Clin Oncol.",
+      "Black JO, Coffin CM, Parham DM, Anderson JR, Hawkins DS, Randall L, Hayes-Jordan AA, Kao SC, McCarville B, Spunt SL. Clinicopathologic Features of NRSTS. Am J Surg Pathol.",
+      "Kao SC. Overview of the clinical and imaging features of the most common non-rhabdomyosarcoma soft-tissue sarcomas. Pediatr Radiol 2019."
+    ];
+
+    function renderPublications(filter = "") {
+      const keyword = filter.trim().toLowerCase();
+      const filtered = publications.filter(item => item.toLowerCase().includes(keyword));
+      pubList.innerHTML = "";
+      filtered.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "pub-item";
+        div.innerHTML = item
+          .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>')
+          .replace(/doi:\s*(10\.[^\s]+)/gi, 'doi: <a href="https://doi.org/$1" target="_blank" rel="noopener">$1</a>');
+        pubList.appendChild(div);
+      });
+      pubCount.textContent = currentLang === "yue"
+        ? `顯示 ${filtered.length} 項出版物`
+        : `${filtered.length} publications shown`;
+    }
+
+    pubFilter.addEventListener("input", (event) => {
+      renderPublications(event.target.value);
+    });
+
+    renderPublications();
+    applyLanguage(currentLang);
+  </script>
+</body>
+</html>
